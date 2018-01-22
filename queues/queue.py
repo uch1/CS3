@@ -22,27 +22,34 @@ class LinkedQueue(object):
     def is_empty(self):
         """Return True if this queue is empty, or False otherwise."""
         # FIFO (First In First Out)
+
         # TODO: Check if empty
-        return self.linked_list.head is None
-
-
+        return self.linked_list.head is None #O(1)
 
     def length(self):
         """Return the number of items in this queue."""
         # FIFO (First In First Out)
         # TODO: Count number of items
+        return self.linked_list.length()
 
     def enqueue(self, item):
         """Insert the given item at the back of this queue.
         Running time: O(???) – Why? [TODO]"""
         # FIFO (First In First Out)
         # TODO: Insert given item
+        return self.linked_list.append(item)
 
     def front(self):
         """Return the item at the front of this queue without removing it,
         or None if this queue is empty."""
         # FIFO (First In First Out)
         # TODO: Return front item, if any
+        # if self.linked_list.is_empty():
+        #     return None
+        if self.is_empty():
+            return None
+        return self.linked_list.head.data 
+
 
     def dequeue(self):
         """Remove and return the item at the front of this queue,
@@ -50,6 +57,12 @@ class LinkedQueue(object):
         Running time: O(???) – Why? [TODO]"""
         # FIFO (First In First Out)
         # TODO: Remove and return front item, if any
+        if self.is_empty():
+            raise ValueError("The Party is empty. WYA???")
+
+        # item(lol person) at the front of this queue(line)
+        item =  self.linked_list.head.data
+        return self.linked_list.delete(item)
 
 
 # Implement ArrayQueue below, then change the assignment at the bottom
