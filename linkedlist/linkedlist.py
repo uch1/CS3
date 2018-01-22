@@ -215,6 +215,14 @@ class LinkedList(object):
                     previous.next = None
                 # Update tail to the previous node regardless
                 self.tail = previous
+            # Check if we found a node at the head and tail
+            if node is self.head and node is self.tail:
+                # the head points at nothing
+                self.head = None
+                # the tail points at nothing
+                self.tail = None
+
+
         else:
             # Otherwise raise an error to tell the user that delete has failed
             raise ValueError('Item not found: {}'.format(item))
