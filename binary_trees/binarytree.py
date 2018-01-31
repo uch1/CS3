@@ -133,11 +133,11 @@ class BinarySearchTree(object):
             # Check if the given item is less than the node's data
             elif item < node.data:
                 # Descend to the node's left child
-                node = self.left
+                node = node.left
             # Check if the given item is greater than the node's data
             elif item > node.data:
                 # Descend to the node's right child
-                node = self.right
+                node = node.right
         # Not found
         return None
 
@@ -160,19 +160,21 @@ class BinarySearchTree(object):
             elif item < node.data:
                 # TODO: Update the parent and descend to the node's left child
                 parent = node
-                node = self.left
+                node = node.left
             # TODO: Check if the given item is greater than the node's data
             elif item > node.data:
                 # TODO: Update the parent and descend to the node's right child
                 parent = node
-                node = self.right
+                node = node.right
         # Not found
         return parent
 
     # This space intentionally left blank (please do not delete this comment)
 
     def items_in_order(self):
-        """Return an in-order list of all items in this binary search tree."""
+        """Return an in-order list of all items in this binary search tree.
+            starting from the left node --> root node --> right node
+        """
         items = []
         if not self.is_empty():
             # Traverse tree in-order from root, appending each node's item
@@ -186,11 +188,13 @@ class BinarySearchTree(object):
         TODO: Running time: ??? Why and under what conditions?
         TODO: Memory usage: ??? Why and under what conditions?"""
         # TODO: Traverse left subtree, if it exists
-        ...
+        if node.left is not None:
+            return _traverse_in_order_recursive(node.left, visit)
         # TODO: Visit this node's data with given function
-        ...
+        visit = visit(node.data)
         # TODO: Traverse right subtree, if it exists
-        ...
+        if node.right is not None:
+            return _traverse_in_order_recursive(node.right, visit)
 
     def _traverse_in_order_iterative(self, node, visit):
         """Traverse this binary tree with iterative in-order traversal (DFS).
