@@ -21,10 +21,10 @@ def bubble_sort(items):
     repeating until all items are in sorted order.
     TODO: Running time: ??? Why and under what conditions?
     TODO: Memory usage: ??? Why and under what conditions?"""
-    # TODO: Repeat until all items are in sorted order
-    # TODO: Swap adjacent items that are out of order
-    while not is_sorted(items):
 
+    # TODO: Swap adjacent items that are out of order
+
+    # Repeat until all items are in sorted order
         for i in range(0, len(item)):
             left_element = items[i]
             right_element = items[i + 1]
@@ -43,22 +43,26 @@ def selection_sort(items):
         - Best Case: O(n^2) It's not guaranteed that array will be sorted, we have to repeat
             the same process
     TODO: Memory usage: ??? Why and under what conditions?"""
-    # TODO: Repeat until all items are in sorted order
-    # TODO: Find minimum item in unsorted items
-    # TODO: Swap it with first unsorted item
 
-    # iterate over each element in the array
-    for i in range(0, len(items)):
-        # find the smallest value in the unsorted array
-        #current_minimum = items[i]
-        # find the the next smallest number
-        for j in range(i + 1, len(items)):
-            #next_number = items[j]
-            if items[j] < items[i]:
-                items[j] = items[i]
-                items[i] = items[j]
-    return items
+    # if the array is sorted then STOP
+    if is_sorted(items):
+        return
 
+    # Repeat until all items are in sorted order
+    # iterate and get the position of each unsorted element
+    for index in range(len(items) - 1):
+        # set the first unsorted element as the minimum
+        minimum = items[index]
+        # iterate through the remaining unsorted elements to find the true minimum
+        for index2 in range(index + 1, len(items)):
+            element = items[index2]
+
+            if element < minimum:
+                # Swap it with first unsorted item
+                # unsorted element becomes the new minimum
+                element = minimum
+                # current minimum becomes the unsorted element
+                minimum = element
 
 
 
@@ -68,23 +72,37 @@ def insertion_sort(items):
     TODO: Running time: ??? Why and under what conditions?
     TODO: Memory usage: ??? Why and under what conditions?"""
     # items is a given array of unsorted elements
-    # TODO: Repeat until all items are in sorted order
+    # TODO: Do this using a for loop
     # TODO: Take first unsorted item
     # TODO: Insert it in sorted order in front of items
 
+
+    for index in range(1,len(items)):
+        current_element = items[index]
+        position = index
+
+        while position > 0 and items[position - 1] > current_element:
+            items[position] = items[position - 1]
+            position = position - 1
+
+        items[position] = current_element
+    # Repeat until all items are in sorted order
+    # for index in range(1, len(items)):
+    #     sorted_element = items[index - 1]
+    #     extracted_element = items[index]
     # Mark the first element as sorted
-    i = 0
-    sorted_element = items[i]
-    # Extract the first unsorted element in items:
-    for j in range(len(items)):
-        # 'j' represents the unsorted elements in items
-        extracted_element = items[j + 1]
-        for
-        if sorted_element > extracted_element:
-            items[j + 1] = items[i]
-            # moved sorted element to the right by 1
-            i += 1
-        break
+    # i = 0
+    # sorted_element = items[i]
+    # # Extract the first unsorted element in items:
+    # for j in range(len(items)):
+    #     # 'j' represents the unsorted elements in items
+    #     extracted_element = items[j + 1]
+    #     for
+    #     if sorted_element > extracted_element:
+    #         items[j + 1] = items[i]
+    #         # moved sorted element to the right by 1
+    #         i += 1
+    #     break
 
 
 
@@ -94,9 +112,25 @@ def merge(items1, items2):
     and return a new list containing all items in sorted order.
     TODO: Running time: ??? Why and under what conditions?
     TODO: Memory usage: ??? Why and under what conditions?"""
-    # TODO: Repeat until one list is empty
-    # TODO: Find minimum item in both lists and append it to new list
-    # TODO: Append remaining items in non-empty list to new list
+    # Repeat until one list is empty
+    new_list = []
+    
+    # Find minimum item in both lists and append it to new list
+    for left_index in range(len(items1) - 1):
+        left_item = items1[left_index]
+
+        for right_index in range(len(items2) - 1):
+            right_item = items2[right_index]
+
+            # Append remaining items in non-empty list to new list
+            if left_item < right_item:
+                new_list.append(left_item)
+            if right_item < left_item:
+                new_list.append(right_item)
+            if left_item == right_item:
+                new_list.append(left_item)
+                new_list.append(right_item)
+
 
 
 def split_sort_merge(items):
@@ -108,7 +142,7 @@ def split_sort_merge(items):
     # TODO: Split items list into approximately equal halves
     # TODO: Sort each half using any other sorting algorithm
     # TODO: Merge sorted halves into one list in sorted order
-
+    # DIVIDE
 
 def merge_sort(items):
     """Sort given items by splitting list into two approximately equal halves,
