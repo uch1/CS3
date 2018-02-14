@@ -52,19 +52,18 @@ def selection_sort(items):
     # iterate and get the position of each unsorted element
     for index in range(len(items) - 1):
         # set the first unsorted element as the minimum
-        minimum = items[index]
+        current_minimum = items[index]
         # iterate through the remaining unsorted elements to find the true minimum
         for index2 in range(index + 1, len(items)):
-            element = items[index2]
+            unsorted_element = items[index2]
 
-            if element < minimum:
-                # Swap it with first unsorted item
+            if unsorted_element < current_minimum:
                 # unsorted element becomes the new minimum
-                element = minimum
+                #element = minimum
                 # current minimum becomes the unsorted element
-                minimum = element
-
-
+                current_minimum = unsorted_element
+    # swap minimum with first unsorted position
+    unsorted_element, current_minimum = current_minimum, unsorted_element
 
 def insertion_sort(items):
     """Sort given items by taking first unsorted item, inserting it in sorted
@@ -114,7 +113,7 @@ def merge(items1, items2):
     TODO: Memory usage: ??? Why and under what conditions?"""
     # Repeat until one list is empty
     new_list = []
-    
+
     # Find minimum item in both lists and append it to new list
     for left_index in range(len(items1) - 1):
         left_item = items1[left_index]
@@ -122,7 +121,7 @@ def merge(items1, items2):
         for right_index in range(len(items2) - 1):
             right_item = items2[right_index]
 
-            # Append remaining items in non-empty list to new list
+
             if left_item < right_item:
                 new_list.append(left_item)
             if right_item < left_item:
@@ -131,7 +130,9 @@ def merge(items1, items2):
                 new_list.append(left_item)
                 new_list.append(right_item)
 
-
+    # Append remaining items in non-empty list to new list
+    if len(new_list) > len(items1) and len(new_list) > len(items2):
+        new_list.extend(items1 + items2)
 
 def split_sort_merge(items):
     """Sort given items by splitting list into two approximately equal halves,
@@ -139,10 +140,16 @@ def split_sort_merge(items):
     a list in sorted order.
     TODO: Running time: ??? Why and under what conditions?
     TODO: Memory usage: ??? Why and under what conditions?"""
-    # TODO: Split items list into approximately equal halves
-    # TODO: Sort each half using any other sorting algorithm
-    # TODO: Merge sorted halves into one list in sorted order
-    # DIVIDE
+    # Split items list into approximately equal halves
+    mid_point = len(items) // 2
+    left_half = items[:mid_point]
+    right_half = items[mid_point:]
+
+    # Sort each half using any other sorting algorithm
+    selection_sort(left_half)
+    selection_sort(right_half)
+    # Merge sorted halves into one list in sorted order
+    items[:] = merge(items1, items2)
 
 def merge_sort(items):
     """Sort given items by splitting list into two approximately equal halves,
